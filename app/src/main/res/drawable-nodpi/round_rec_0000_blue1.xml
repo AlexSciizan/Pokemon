@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--background-->
+    <solid android:color="@color/biru_special" />
+    <stroke
+        android:width="2dp"
+        android:color="#000000" />
+
+    <corners android:radius="10dp" />
+
+    <padding
+        android:bottom="0dip"
+        android:left="0dip"
+        android:right="0dip"
+        android:top="0dip" />
+
+</shape>

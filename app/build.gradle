@@ -1,0 +1,78 @@
+plugins {
+    id 'com.android.application'
+}
+int MILLIS_IN_MINUTE = 1000 * 60
+int minutesSinceEpoch = System.currentTimeMillis() / MILLIS_IN_MINUTE
+android {
+    compileSdk 31
+    defaultConfig {
+        applicationId "com.pokemon"
+        minSdk 21
+        targetSdk 31
+        versionCode minutesSinceEpoch
+        versionName minutesSinceEpoch + "28"
+        multiDexEnabled true
+        wearAppUnbundled true
+        aaptOptions.cruncherEnabled = false
+    }
+    signingConfigs {
+        release {
+            // You need to specify either an absolute path or include the
+            // keystore file in the same directory as the build.gradle file.
+            storeFile file("pokemon.jks")//lokasinya di dokuments
+            storePassword "password"
+            keyAlias "my-alias"
+            keyPassword "password"
+        }
+    }
+
+    dexOptions {
+        additionalParameters = ['--core-library']
+        javaMaxHeapSize "20g"
+        jumboMode = false
+        maxProcessCount = 10
+        threadCount 10
+        dexInProcess = true
+        preDexLibraries = true
+        incremental true
+    }
+    tasks.withType(JavaCompile) {
+        options.incremental = true
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+    }
+}
+if (JavaVersion.current().isJava8Compatible()) {
+    tasks.withType(Javadoc) {
+        noinspection SpellCheckingInspection
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.koushikdutta.ion:ion:3.1.0'
+}
+// -PDevBuild --configure-on-demand --max-workers=30 --offline --parallel --no-rebuild -Dorg.gradle.daemon.debug=true --warning-mode=none -Dorg.gradle.daemon=true -Dorg.gradle.debug=false
+// gradle offline https://stackoverflow.com/questions/28359851/how-to-install-android-studio-full-offline/60191428#60191428

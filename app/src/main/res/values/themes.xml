@@ -1,0 +1,14 @@
+<resources>
+    <style name="pokemonTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimaryDark">@color/biru</item>
+        <item name="colorAccent">@color/biru</item>
+        <item name="colorPrimary">@color/biru</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:editTextColor">#000000</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+</resources>
